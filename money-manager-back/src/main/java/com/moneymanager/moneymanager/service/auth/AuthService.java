@@ -46,4 +46,18 @@ public class AuthService {
         }
 
     }
+
+    public String validateToken(final String token) {
+        try {
+            final var algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            final var subject = JWT.require(algorithm)
+                    .withIssuer(TOKEN_ISSUER)
+                    .build()
+                    .verify(token)
+                    .getSubject();
+            return subject;
+        } catch (Exception e){
+            return "";
+        }
+    }
 }

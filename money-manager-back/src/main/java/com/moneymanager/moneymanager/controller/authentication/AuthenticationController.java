@@ -2,6 +2,8 @@ package com.moneymanager.moneymanager.controller.authentication;
 
 import com.moneymanager.moneymanager.controller.authentication.dto.LoginRequestDto;
 import com.moneymanager.moneymanager.controller.authentication.dto.LoginResponseDto;
+import com.moneymanager.moneymanager.controller.authentication.dto.ValidateRequestDto;
+import com.moneymanager.moneymanager.controller.authentication.dto.ValidateResponseDto;
 import com.moneymanager.moneymanager.controller.authentication.dto.mapper.LoginRequestToLoginServiceMapper;
 import com.moneymanager.moneymanager.service.auth.AuthService;
 import jakarta.validation.Valid;
@@ -26,5 +28,18 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/validate")
+    public ResponseEntity<ValidateResponseDto> validade(@RequestBody @Valid final ValidateRequestDto input){
+        //TODO: colocar no service
+        final var serviceOutput = this.authService.validateToken(input.token());
+        var isValid = false;
+
+        if (!serviceOutput.isBlank()){
+            isValid = true;
+        }
+        return ResponseEntity.ok(new ValidateResponseDto(isValid));
+    }
+
 
 }
