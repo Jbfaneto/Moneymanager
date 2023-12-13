@@ -8,12 +8,15 @@ import com.moneymanager.moneymanager.service.auth.dto.LoginServiceInputDto;
 import com.moneymanager.moneymanager.service.auth.dto.LoginServiceOutputDto;
 import com.moneymanager.moneymanager.service.exceptions.AuthenticationException;
 import com.moneymanager.moneymanager.service.exceptions.LoginException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
     final User uniqueUser = User.with("jbfaneto@gmail.com", "joaoneto");
 
     final String TOKEN_SECRET = "123456";
@@ -60,4 +63,14 @@ public class AuthService {
             return "";
         }
     }
+
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+       if (username.equals(this.uniqueUser.getUsername())){
+           return this.uniqueUser;
+         } else {
+              throw new UsernameNotFoundException("User not found");
+       }
+    }
+
 }
