@@ -1,5 +1,6 @@
 package com.moneymanager.moneymanager.controller.activity;
 
+import com.moneymanager.moneymanager.controller.activity.dto.CalculateBalanceResponseDto;
 import com.moneymanager.moneymanager.controller.activity.dto.InsertActivityRequestDto;
 import com.moneymanager.moneymanager.controller.activity.dto.InsertActivityResponseDto;
 import com.moneymanager.moneymanager.controller.activity.dto.ListActivityDto;
@@ -54,6 +55,15 @@ public class ActivityController {
         final var service = ActivityServiceImplemented.build(gateway);
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/balance")
+    public ResponseEntity<CalculateBalanceResponseDto> calculateBalance(){
+        final var gateway = ActivityJpaGateway.build(activityJpaRepository);
+        final var service = ActivityServiceImplemented.build(gateway);
+        final var serviceResponse = service.calculateBalance();
+        final var response = new CalculateBalanceResponseDto(serviceResponse);
+        return ResponseEntity.ok().body(response);
     }
 
 }

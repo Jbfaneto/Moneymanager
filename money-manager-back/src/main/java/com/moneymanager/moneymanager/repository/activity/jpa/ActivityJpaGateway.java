@@ -35,6 +35,7 @@ public class ActivityJpaGateway implements ActivityGateway {
 
     @Override
     public void delete(final String id) {
+
         this.findById(id);
         this.activityRepository.deleteById(id);
     }
