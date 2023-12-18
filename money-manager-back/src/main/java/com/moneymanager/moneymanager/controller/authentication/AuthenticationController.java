@@ -30,8 +30,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<ValidateResponseDto> validade(@RequestBody @Valid final ValidateRequestDto input){
-        //TODO: colocar no service
+    public ResponseEntity<ValidateResponseDto> validate(@RequestBody @Valid final ValidateRequestDto input){
         final var serviceOutput = this.authService.validateToken(input.token());
         var isValid = false;
 
