@@ -45,6 +45,13 @@ public class ActivityServiceImplemented implements ActivityService {
     }
 
     @Override
+    public List<ListActivityOutputDto> listActivitiesByMonth(int month) {
+        final var list = this.activityGateway.findActivitiesByMonth(month);
+        return list.stream()
+                .map(activity -> ActivityToListActivityOutputDtoMapper.build().apply(activity)).collect(Collectors.toList());
+    }
+
+    @Override
     public float calculateBalance() {
         final var list = this.activityGateway.findAll();
         if (list.isEmpty()) {
@@ -55,4 +62,5 @@ public class ActivityServiceImplemented implements ActivityService {
                         activity -> activity.getType() == Type.REVENUE ? activity.getValue() : -activity.getValue())
                 .sum();
     }
+
 }

@@ -51,4 +51,10 @@ public class ActivityJpaGateway implements ActivityGateway {
         Optional<ActivityJpaEntity> activity = this.activityRepository.findById(id);
         return activity.orElseThrow(() -> new EntityNotFoundException("Id not found")).toModel();
     }
+
+    public List<Activity> findActivitiesByMonth(int month) {
+        final var list = this.activityRepository.findActivitiesByMonth(month);
+        return list.stream().map(activityEntity -> activityEntity.toModel()).collect(Collectors.toList());
+    }
+
 }

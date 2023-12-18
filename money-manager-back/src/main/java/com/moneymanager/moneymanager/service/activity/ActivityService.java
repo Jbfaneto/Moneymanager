@@ -11,5 +11,6 @@ public interface ActivityService {
     public InsertActivityOutputDto insert(final InsertActivityInputDto input);
     public void delete(final String id);
     public List<ListActivityOutputDto> listActivities();
+    public List<ListActivityOutputDto> listActivitiesByMonth(int month);
     public float calculateBalance();
 }

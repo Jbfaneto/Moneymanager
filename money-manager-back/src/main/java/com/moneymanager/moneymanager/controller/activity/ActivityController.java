@@ -33,6 +33,15 @@ public class ActivityController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/{month}")
+    public ResponseEntity<ListActivityDto> listActivitiesByMonth(@PathVariable final int month){
+        final var gateway = ActivityJpaGateway.build(activityJpaRepository);
+        final var service = ActivityServiceImplemented.build(gateway);
+        final var list = service.listActivitiesByMonth(month);
+        final var response = ListActivitiesToListActivitiesResponseMapper.build().apply(list);
+        return ResponseEntity.ok().body(response);
+    }
+
     @PostMapping
     public ResponseEntity<InsertActivityResponseDto> insertActivity(@RequestBody InsertActivityRequestDto input){
         final var gateway = ActivityJpaGateway.build(activityJpaRepository);

@@ -9,4 +9,6 @@ public interface ActivityGateway {
     public void delete(final String id);
     public List<Activity> findAll();
     public Activity findById(final String id);
+
+    public List<Activity> findActivitiesByMonth(int month);
 }
