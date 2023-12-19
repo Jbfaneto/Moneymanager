@@ -31,14 +31,8 @@ public class AuthenticationController {
 
     @PostMapping("/validate")
     public ResponseEntity<ValidateResponseDto> validate(@RequestBody @Valid final ValidateRequestDto input){
-        final var serviceOutput = this.authService.validateToken(input.token());
-        var isValid = false;
-
-        if (!serviceOutput.isBlank()){
-            isValid = true;
-        }
+        final var isValid = this.authService.validateToken(input.token());
         return ResponseEntity.ok(new ValidateResponseDto(isValid));
     }
-
 
 }

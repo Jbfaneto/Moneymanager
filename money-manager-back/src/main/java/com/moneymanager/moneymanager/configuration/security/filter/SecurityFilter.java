@@ -25,7 +25,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         final var authToken =  request.getHeader("Authorization");
         if (authToken != null) {
             final var token = authToken.replace("Bearer ", "");
-            final var username = this.authService.validateToken(token);
+            final var username = this.authService.tokenValidation(token);
 
             final var user = this.authService.loadUserByUsername(username);
 

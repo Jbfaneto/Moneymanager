@@ -50,7 +50,7 @@ public class AuthService implements UserDetailsService {
 
     }
 
-    public String validateToken(final String token) {
+    public boolean validateToken(final String token) {
         try {
             final var algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             final var subject = JWT.require(algorithm)
@@ -58,8 +58,18 @@ public class AuthService implements UserDetailsService {
                     .build()
                     .verify(token)
                     .getSubject();
-            return subject;
+            return !subject.isBlank();
         } catch (Exception e){
+            return false;
+        }
+    }
+
+    public String tokenValidation(final String token) {
+        try {
+            final var algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+            final var subject = JWT.require(algorithm) .withIssuer(TOKEN_ISSUER) .build() .verify(token) .getSubject();
+            return subject;
+        } catch (Exception e) {
             return "";
         }
     }
