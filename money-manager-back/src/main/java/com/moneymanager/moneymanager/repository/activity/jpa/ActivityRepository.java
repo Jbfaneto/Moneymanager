@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<ActivityJpaEntity, String> {
-    @Query(value = "SELECT * FROM activities a WHERE MONTH(DATE(a.date)) = :month", nativeQuery = true)
-    List<ActivityJpaEntity> findActivitiesByMonth(@Param("month") int month);
+    @Query(value = "SELECT * FROM activities a WHERE MONTH(DATE(a.date)) = :month AND YEAR(DATE(a.date)) = :year", nativeQuery = true)
+    List<ActivityJpaEntity> findActivitiesByMonthAndYear(@Param("month") int month, @Param("year") int year);
 }

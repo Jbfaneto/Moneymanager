@@ -45,8 +45,8 @@ public class ActivityServiceImplemented implements ActivityService {
     }
 
     @Override
-    public List<ListActivityOutputDto> listActivitiesByMonth(int month) {
-        final var list = this.activityGateway.findActivitiesByMonth(month);
+    public List<ListActivityOutputDto> listActivitiesByMonth(int month, int year) {
+        final var list = this.activityGateway.findActivitiesByMonthAndYear(month, year);
         return list.stream()
                 .map(activity -> ActivityToListActivityOutputDtoMapper.build().apply(activity)).collect(Collectors.toList());
     }

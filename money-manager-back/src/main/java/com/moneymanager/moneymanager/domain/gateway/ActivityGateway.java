@@ -10,5 +10,5 @@ public interface ActivityGateway {
     public List<Activity> findAll();
     public Activity findById(final String id);
 
-    public List<Activity> findActivitiesByMonth(int month);
+    public List<Activity> findActivitiesByMonthAndYear(int month, int year);
 }

@@ -33,11 +33,11 @@ public class ActivityController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/{month}")
-    public ResponseEntity<ListActivityDto> listActivitiesByMonth(@PathVariable final int month){
+    @GetMapping("/filter")
+    public ResponseEntity<ListActivityDto> listActivitiesByMonthAndYear(@RequestParam final int month, @RequestParam final int year){
         final var gateway = ActivityJpaGateway.build(activityJpaRepository);
         final var service = ActivityServiceImplemented.build(gateway);
-        final var list = service.listActivitiesByMonth(month);
+        final var list = service.listActivitiesByMonth(month, year);
         final var response = ListActivitiesToListActivitiesResponseMapper.build().apply(list);
         return ResponseEntity.ok().body(response);
     }
